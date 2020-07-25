@@ -1,11 +1,14 @@
 package br.com.cipa.task.repository;
 
-import br.com.cipa.task.entity.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import br.com.cipa.task.entity.Users;
 
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+public interface UserRepository extends JpaRepository<Users, Long> {
 
-    List<UserEntity> findAllUsersBySincronizadoTrue();
+    Page<Users> findAllUsersBySincronizadoFalseAndIdZendeskIsNull(Pageable pageable);
+    
+    Page<Users> findAllUsersBySincronizadoFalseAndIdZendeskIsNotNull(Pageable pageable);
 }
