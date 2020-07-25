@@ -17,6 +17,6 @@ public class ScheduledTask {
 
     @Scheduled(fixedRate = 1000)
     private void test() {
-//    	System.out.println(userService.findAll());
+        userService.updateUsers();
     }
 }

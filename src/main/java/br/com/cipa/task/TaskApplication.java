@@ -1,10 +1,5 @@
 package br.com.cipa.task;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
 import br.com.cipa.task.entity.Users;
 import br.com.cipa.task.repository.UserRepository;
 import org.slf4j.Logger;

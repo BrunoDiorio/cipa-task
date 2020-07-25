@@ -1,27 +1,23 @@
 package br.com.cipa.task.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Type;
 
-@Entity(name = "USERS")
-@Getter @Setter
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@Getter @Setter @ToString
+@MappedSuperclass
 public class Users {
 
 	@Id
-	@Column(name="ID_ZENDESK")
-	private Long idZendesk;
-	@Column(name="USER_EXTERNAL_ID")
-	private String userExternalId;
-	@Column(name = "EMAIL")
+	private Long id;
+	private String externalId;
 	private String email;
-	@Column(name = "USERNAME")
-	private String nomeUsuario;
-	@Column(name = "PHONE")
-	private String telefone;
-	@Column(name = "CUSTOM_FIELD_SINCRONIZADO")
+	private String name;
+	private String phone;
+	@Type(type = "numeric_boolean")
 	private boolean sincronizado;
 }
