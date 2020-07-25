@@ -1,19 +1,17 @@
 package br.com.cipa.task.configuration;
 
+import com.amazon.sqs.javamessaging.SQSConnectionFactory;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jms.core.JmsTemplate;
-
-import com.amazon.sqs.javamessaging.SQSConnectionFactory;
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
@@ -37,8 +35,7 @@ public class ApplicationConfiguration {
 	public RestTemplate restTemplate(final ObjectMapper objectMapper) {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate
-				.setMessageConverters(Collections.singletonList(
-						new MappingJackson2HttpMessageConverter((objectMapper))));
+				.setMessageConverters(Collections.singletonList(new MappingJackson2HttpMessageConverter((objectMapper))));
 
 		return restTemplate;
 	}

@@ -17,6 +17,6 @@ public class ScheduledTask {
 
     @Scheduled(fixedRate = 1000)
     private void test() {
-        userService.updateUsers();
+//        userService.updateUsers();
     }
 }

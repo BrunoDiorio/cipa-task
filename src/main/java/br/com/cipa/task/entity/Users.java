@@ -20,4 +20,8 @@ public class Users {
 	private String phone;
 	@Type(type = "numeric_boolean")
 	private boolean sincronizado;
+
+	public void wasSync() {
+		this.sincronizado = true;
+	}
 }
