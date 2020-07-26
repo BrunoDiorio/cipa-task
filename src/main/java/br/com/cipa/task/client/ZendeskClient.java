@@ -1,5 +1,6 @@
 package br.com.cipa.task.client;
 
+import br.com.cipa.task.adapter.SaveUsersRequest;
 import br.com.cipa.task.dto.UsersDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,13 +32,14 @@ public class ZendeskClient {
 	private HttpHeaders getHttpHeader(final String token) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Accept", "application/json");
 		headers.setBasicAuth(token);
 		return headers;
 	}
 
-	public void saveUsers(final List<UsersDTO> users) {
+	public void saveUsers(final SaveUsersRequest users) {
 		try {
-			HttpEntity<List<UsersDTO>> usersList = new HttpEntity<>(users, this.httpHeader);
+			HttpEntity<SaveUsersRequest> usersList = new HttpEntity<>(users, this.httpHeader);
 			Object o = restTemplate.postForEntity(this.saveUri, usersList, Object.class);
 			log.info(o.toString());
 		} catch (Exception e) {

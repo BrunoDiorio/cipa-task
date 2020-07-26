@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+
+import br.com.cipa.task.client.ZendeskInterceptor;
+
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -32,12 +36,11 @@ public class ApplicationConfiguration {
 	}
 
 	@Bean
-	public RestTemplate restTemplate(final ObjectMapper objectMapper) {
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate
-				.setMessageConverters(Collections.singletonList(new MappingJackson2HttpMessageConverter((objectMapper))));
-
-		return restTemplate;
+	public RestTemplate restTemplate(final ObjectMapper objectMapper, final ZendeskInterceptor zendeskInterceptor) {
+		return new RestTemplateBuilder()
+		 .interceptors(zendeskInterceptor)
+		 .messageConverters(Collections.singletonList(new MappingJackson2HttpMessageConverter((objectMapper))))
+		 .build();
 	}
 
 	@Bean

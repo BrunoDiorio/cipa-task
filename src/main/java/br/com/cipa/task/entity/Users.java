@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -18,10 +20,12 @@ public class Users {
 	private String email;
 	private String name;
 	private String phone;
-	@Type(type = "numeric_boolean")
+	@JsonIgnore
 	private boolean sincronizado;
 
 	public void wasSync() {
 		this.sincronizado = true;
 	}
+	
+	
 }
