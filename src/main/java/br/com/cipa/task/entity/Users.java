@@ -1,6 +1,7 @@
 package br.com.cipa.task.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,9 @@ public class Users {
 	@Id
 	private Long id;
 	private String externalId;
+	@JsonIgnore
 	private String email;
+	@JsonIgnore
 	private String name;
 	private String phone;
 	@JsonIgnore
@@ -35,7 +38,7 @@ public class Users {
 	public List<Identity> identities() {
 		List<Identity> list = new ArrayList<>();
 		list.addAll(this.normalizeIdentities(this.email.split(","), "email"));
-		list.addAll(this.normalizeIdentities(this.email.split(","), "phone_number"));
+		list.addAll(this.normalizeIdentities(this.phone.split(","), "phone_number"));
 		return list;
 	}
 
@@ -44,11 +47,25 @@ public class Users {
 		return Arrays.stream(list)
 				.map(s -> {
 					Identity identity = new Identity();
-					identity.setType(type);//phone_number
+					identity.setType(type);
 					identity.setPrimary(i.getAndIncrement() == 0);
 					identity.setValue(s);
 					identity.setId(id);
 					return identity;
 				}).collect(Collectors.toList());
+	}
+
+	@JsonProperty("email")
+	public String normalizeEmail() {
+		return Arrays.stream(this.email.split(","))
+				.findFirst()
+				.orElse(null);			
+	}
+	
+	@JsonProperty("phone")
+	public String normalizePhone() {
+		return Arrays.stream(this.phone.split(","))
+				.findFirst()
+				.orElse(null);			
 	}
 }
